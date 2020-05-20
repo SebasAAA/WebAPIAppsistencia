@@ -1,0 +1,1139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="appsistenciaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Primer_Apellido" Type="varchar" MaxLength="100" />
+          <Property Name="Segundo_Apellido" Type="varchar" MaxLength="100" />
+          <Property Name="Genero" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Celular" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Identificacion" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Tipo_Identificacion" Type="int" />
+          <Property Name="Edad" Type="int" />
+          <Property Name="Certificado_Asistente" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ID_Licencia_Conducir" Type="int" />
+          <Property Name="Tiempo_Laborado" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="CobroXhora" Type="int" />
+          <Property Name="Foto" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'appsistenciaDB.dbo.AsistentesXUsuario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="AsistentesXUsuario">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+            <PropertyRef Name="ID_Asistente" />
+          </Key>
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Asistente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Barreras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Barrera" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BarrerasXusuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Barrera" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Calificaciones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Asistente" Type="int" Nullable="false" />
+          <Property Name="ID_Transaccion" Type="int" />
+          <Property Name="Calificacion" Type="varchar" MaxLength="50" />
+          <Property Name="Comentario" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="ContratosXAsistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Asistente" Type="int" />
+          <Property Name="Fecha_Inicio" Type="datetime" />
+          <Property Name="Fecha_Final" Type="datetime" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="DetallesXContrato">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Contrato" Type="int" Nullable="false" />
+          <Property Name="Detalle" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'appsistenciaDB.dbo.DIsponibilidadXAsistente' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="DIsponibilidadXAsistente">
+          <Property Name="ID_Asistente" Type="int" />
+          <Property Name="Dia" Type="varchar" MaxLength="20" />
+          <Property Name="Hora_Inicio" Type="datetime" />
+          <Property Name="Hora_Final" Type="datetime" />
+          <Property Name="ID_Contrato" Type="int" />
+        </EntityType>-->
+        <EntityType Name="HabilidadesXAsistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Asistente" Type="int" Nullable="false" />
+          <Property Name="Habilidad" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Identificacion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo_Identificacion" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Licencias">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIpo_Licencia" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Quejas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Remitente" Type="int" Nullable="false" />
+          <Property Name="ID_Destinatario" Type="int" Nullable="false" />
+          <Property Name="Detalle" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="TipoPagoXAsistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Asistente" Type="int" Nullable="false" />
+          <Property Name="ID_TIpo_Pago" Type="int" />
+        </EntityType>
+        <EntityType Name="TiposPago">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIpo_Pago" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Transaccion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" />
+          <Property Name="ID_Asistente" Type="int" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Hora_Inicio" Type="datetime" />
+          <Property Name="Hora_Final" Type="datetime" />
+          <Property Name="Confirmado" Type="int" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Primer_Apellido" Type="varchar" MaxLength="100" />
+          <Property Name="Segundo_Apellido" Type="varchar" MaxLength="100" />
+          <Property Name="Cedula" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Genero" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telefono_FIjo" Type="varchar" MaxLength="15" />
+          <Property Name="Celular_1" Type="varchar" MaxLength="15" />
+          <Property Name="Celular_2" Type="varchar" MaxLength="15" />
+          <Property Name="Identificacion" Type="varchar" MaxLength="15" />
+          <Property Name="Tipo_Identificacion" Type="int" />
+          <Property Name="Edad" Type="int" />
+          <Property Name="Direccion" Type="varchar" MaxLength="500" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="Foto" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <Association Name="FK__Asistente__ID_As__4CA06362">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="1" />
+          <End Role="AsistentesXUsuario" Type="Self.AsistentesXUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AsistentesXUsuario">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Asistente__ID_Li__4316F928">
+          <End Role="Licencias" Type="Self.Licencias" Multiplicity="0..1" />
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Licencias">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Asistente">
+              <PropertyRef Name="ID_Licencia_Conducir" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Asistente__ID_Us__4BAC3F29">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AsistentesXUsuario" Type="Self.AsistentesXUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AsistentesXUsuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Asistente__Tipo___4222D4EF">
+          <End Role="Identificacion" Type="Self.Identificacion" Multiplicity="0..1" />
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificacion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Asistente">
+              <PropertyRef Name="Tipo_Identificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BarrerasX__ID_Ba__403A8C7D">
+          <End Role="Barreras" Type="Self.Barreras" Multiplicity="1" />
+          <End Role="BarrerasXusuario" Type="Self.BarrerasXusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barreras">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BarrerasXusuario">
+              <PropertyRef Name="ID_Barrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BarrerasX__ID_Us__3F466844">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="BarrerasXusuario" Type="Self.BarrerasXusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BarrerasXusuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__ID_As__4D94879B">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__ID_Tr__4E88ABD4">
+          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="0..1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="ID_Transaccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contratos__ID_As__49C3F6B7">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="0..1" />
+          <End Role="ContratosXAsistente" Type="Self.ContratosXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContratosXAsistente">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallesX__ID_Co__4AB81AF0">
+          <End Role="ContratosXAsistente" Type="Self.ContratosXAsistente" Multiplicity="1" />
+          <End Role="DetallesXContrato" Type="Self.DetallesXContrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContratosXAsistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetallesXContrato">
+              <PropertyRef Name="ID_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errores durante la generación:
+error 6004: Una relación hace referencia a la tabla 'appsistenciaDB.dbo.DIsponibilidadXAsistente', pero no se encuentra la tabla.
+        <Association Name="FK__DIsponibi__ID_As__47DBAE45" />-->
+        <!--Errores durante la generación:
+error 6004: Una relación hace referencia a la tabla 'appsistenciaDB.dbo.DIsponibilidadXAsistente', pero no se encuentra la tabla.
+        <Association Name="FK__DIsponibi__ID_Co__48CFD27E" />-->
+        <Association Name="FK__Habilidad__ID_As__412EB0B6">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="1" />
+          <End Role="HabilidadesXAsistente" Type="Self.HabilidadesXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HabilidadesXAsistente">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TipoPagoX__ID_As__440B1D61">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="1" />
+          <End Role="TipoPagoXAsistente" Type="Self.TipoPagoXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TipoPagoXAsistente">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TipoPagoX__ID_TI__44FF419A">
+          <End Role="TiposPago" Type="Self.TiposPago" Multiplicity="0..1" />
+          <End Role="TipoPagoXAsistente" Type="Self.TipoPagoXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposPago">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TipoPagoXAsistente">
+              <PropertyRef Name="ID_TIpo_Pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacci__ID_As__46E78A0C">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="0..1" />
+          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaccion">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacci__ID_Us__45F365D3">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaccion">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Tipo_Id__3E52440B">
+          <End Role="Identificacion" Type="Self.Identificacion" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificacion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Tipo_Identificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spInsertarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="primer_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="segundo_Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+          <Parameter Name="genero" Type="varchar" Mode="In" />
+          <Parameter Name="telefono_FIjo" Type="varchar" Mode="In" />
+          <Parameter Name="celular_1" Type="varchar" Mode="In" />
+          <Parameter Name="celular_2" Type="varchar" Mode="In" />
+          <Parameter Name="identificacion" Type="varchar" Mode="In" />
+          <Parameter Name="tipo_Identificacion" Type="int" Mode="In" />
+          <Parameter Name="edad" Type="int" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="foto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertarUsuarioTest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+          <Parameter Name="genero" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spSelectUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="appsistenciaDBModelStoreContainer">
+          <EntitySet Name="Asistente" EntityType="Self.Asistente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Barreras" EntityType="Self.Barreras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BarrerasXusuario" EntityType="Self.BarrerasXusuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContratosXAsistente" EntityType="Self.ContratosXAsistente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetallesXContrato" EntityType="Self.DetallesXContrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HabilidadesXAsistente" EntityType="Self.HabilidadesXAsistente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Identificacion" EntityType="Self.Identificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Licencias" EntityType="Self.Licencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quejas" EntityType="Self.Quejas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoPagoXAsistente" EntityType="Self.TipoPagoXAsistente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposPago" EntityType="Self.TiposPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaccion" EntityType="Self.Transaccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AsistentesXUsuario" EntityType="Self.AsistentesXUsuario" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AsistentesXUsuario].[ID_Usuario] AS [ID_Usuario], 
+    [AsistentesXUsuario].[ID_Asistente] AS [ID_Asistente]
+    FROM [dbo].[AsistentesXUsuario] AS [AsistentesXUsuario]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Asistente__ID_As__4CA06362" Association="Self.FK__Asistente__ID_As__4CA06362">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="AsistentesXUsuario" EntitySet="AsistentesXUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Asistente__ID_Li__4316F928" Association="Self.FK__Asistente__ID_Li__4316F928">
+            <End Role="Licencias" EntitySet="Licencias" />
+            <End Role="Asistente" EntitySet="Asistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Asistente__ID_Us__4BAC3F29" Association="Self.FK__Asistente__ID_Us__4BAC3F29">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AsistentesXUsuario" EntitySet="AsistentesXUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Asistente__Tipo___4222D4EF" Association="Self.FK__Asistente__Tipo___4222D4EF">
+            <End Role="Identificacion" EntitySet="Identificacion" />
+            <End Role="Asistente" EntitySet="Asistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BarrerasX__ID_Ba__403A8C7D" Association="Self.FK__BarrerasX__ID_Ba__403A8C7D">
+            <End Role="Barreras" EntitySet="Barreras" />
+            <End Role="BarrerasXusuario" EntitySet="BarrerasXusuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BarrerasX__ID_Us__3F466844" Association="Self.FK__BarrerasX__ID_Us__3F466844">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="BarrerasXusuario" EntitySet="BarrerasXusuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__ID_As__4D94879B" Association="Self.FK__Calificac__ID_As__4D94879B">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__ID_Tr__4E88ABD4" Association="Self.FK__Calificac__ID_Tr__4E88ABD4">
+            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contratos__ID_As__49C3F6B7" Association="Self.FK__Contratos__ID_As__49C3F6B7">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="ContratosXAsistente" EntitySet="ContratosXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallesX__ID_Co__4AB81AF0" Association="Self.FK__DetallesX__ID_Co__4AB81AF0">
+            <End Role="ContratosXAsistente" EntitySet="ContratosXAsistente" />
+            <End Role="DetallesXContrato" EntitySet="DetallesXContrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Habilidad__ID_As__412EB0B6" Association="Self.FK__Habilidad__ID_As__412EB0B6">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="HabilidadesXAsistente" EntitySet="HabilidadesXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TipoPagoX__ID_As__440B1D61" Association="Self.FK__TipoPagoX__ID_As__440B1D61">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="TipoPagoXAsistente" EntitySet="TipoPagoXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TipoPagoX__ID_TI__44FF419A" Association="Self.FK__TipoPagoX__ID_TI__44FF419A">
+            <End Role="TiposPago" EntitySet="TiposPago" />
+            <End Role="TipoPagoXAsistente" EntitySet="TipoPagoXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacci__ID_As__46E78A0C" Association="Self.FK__Transacci__ID_As__46E78A0C">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="Transaccion" EntitySet="Transaccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacci__ID_Us__45F365D3" Association="Self.FK__Transacci__ID_Us__45F365D3">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Transaccion" EntitySet="Transaccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Tipo_Id__3E52440B" Association="Self.FK__Usuario__Tipo_Id__3E52440B">
+            <End Role="Identificacion" EntitySet="Identificacion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="appsistenciaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Primer_Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Celular" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Identificacion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipo_Identificacion" Type="Int32" />
+          <Property Name="Edad" Type="Int32" />
+          <Property Name="Certificado_Asistente" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Licencia_Conducir" Type="Int32" />
+          <Property Name="Tiempo_Laborado" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CobroXhora" Type="Int32" />
+          <Property Name="Foto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Licencias" Relationship="Self.FK__Asistente__ID_Li__4316F928" FromRole="Asistente" ToRole="Licencias" />
+          <NavigationProperty Name="Identificacion1" Relationship="Self.FK__Asistente__Tipo___4222D4EF" FromRole="Asistente" ToRole="Identificacion" />
+          <NavigationProperty Name="Calificaciones" Relationship="Self.FK__Calificac__ID_As__4D94879B" FromRole="Asistente" ToRole="Calificaciones" />
+          <NavigationProperty Name="ContratosXAsistente" Relationship="Self.FK__Contratos__ID_As__49C3F6B7" FromRole="Asistente" ToRole="ContratosXAsistente" />
+          <NavigationProperty Name="HabilidadesXAsistente" Relationship="Self.FK__Habilidad__ID_As__412EB0B6" FromRole="Asistente" ToRole="HabilidadesXAsistente" />
+          <NavigationProperty Name="TipoPagoXAsistente" Relationship="Self.FK__TipoPagoX__ID_As__440B1D61" FromRole="Asistente" ToRole="TipoPagoXAsistente" />
+          <NavigationProperty Name="Transaccion" Relationship="Self.FK__Transacci__ID_As__46E78A0C" FromRole="Asistente" ToRole="Transaccion" />
+          <NavigationProperty Name="Usuario" Relationship="Self.AsistentesXUsuario" FromRole="Asistente" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Barreras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Barrera" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BarrerasXusuario" Relationship="Self.FK__BarrerasX__ID_Ba__403A8C7D" FromRole="Barreras" ToRole="BarrerasXusuario" />
+        </EntityType>
+        <EntityType Name="BarrerasXusuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_Barrera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barreras" Relationship="Self.FK__BarrerasX__ID_Ba__403A8C7D" FromRole="BarrerasXusuario" ToRole="Barreras" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__BarrerasX__ID_Us__3F466844" FromRole="BarrerasXusuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Calificaciones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Asistente" Type="Int32" Nullable="false" />
+          <Property Name="ID_Transaccion" Type="Int32" />
+          <Property Name="Calificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comentario" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Asistente" Relationship="Self.FK__Calificac__ID_As__4D94879B" FromRole="Calificaciones" ToRole="Asistente" />
+          <NavigationProperty Name="Transaccion" Relationship="Self.FK__Calificac__ID_Tr__4E88ABD4" FromRole="Calificaciones" ToRole="Transaccion" />
+        </EntityType>
+        <EntityType Name="ContratosXAsistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Asistente" Type="Int32" />
+          <Property Name="Fecha_Inicio" Type="DateTime" Precision="3" />
+          <Property Name="Fecha_Final" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Asistente" Relationship="Self.FK__Contratos__ID_As__49C3F6B7" FromRole="ContratosXAsistente" ToRole="Asistente" />
+          <NavigationProperty Name="DetallesXContrato" Relationship="Self.FK__DetallesX__ID_Co__4AB81AF0" FromRole="ContratosXAsistente" ToRole="DetallesXContrato" />
+        </EntityType>
+        <EntityType Name="DetallesXContrato">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Contrato" Type="Int32" Nullable="false" />
+          <Property Name="Detalle" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ContratosXAsistente" Relationship="Self.FK__DetallesX__ID_Co__4AB81AF0" FromRole="DetallesXContrato" ToRole="ContratosXAsistente" />
+        </EntityType>
+        <EntityType Name="HabilidadesXAsistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Asistente" Type="Int32" Nullable="false" />
+          <Property Name="Habilidad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Asistente" Relationship="Self.FK__Habilidad__ID_As__412EB0B6" FromRole="HabilidadesXAsistente" ToRole="Asistente" />
+        </EntityType>
+        <EntityType Name="Identificacion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo_Identificacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Asistente" Relationship="Self.FK__Asistente__Tipo___4222D4EF" FromRole="Identificacion" ToRole="Asistente" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__Tipo_Id__3E52440B" FromRole="Identificacion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Licencias">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIpo_Licencia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Asistente" Relationship="Self.FK__Asistente__ID_Li__4316F928" FromRole="Licencias" ToRole="Asistente" />
+        </EntityType>
+        <EntityType Name="Quejas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Remitente" Type="Int32" Nullable="false" />
+          <Property Name="ID_Destinatario" Type="Int32" Nullable="false" />
+          <Property Name="Detalle" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TipoPagoXAsistente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Asistente" Type="Int32" Nullable="false" />
+          <Property Name="ID_TIpo_Pago" Type="Int32" />
+          <NavigationProperty Name="Asistente" Relationship="Self.FK__TipoPagoX__ID_As__440B1D61" FromRole="TipoPagoXAsistente" ToRole="Asistente" />
+          <NavigationProperty Name="TiposPago" Relationship="Self.FK__TipoPagoX__ID_TI__44FF419A" FromRole="TipoPagoXAsistente" ToRole="TiposPago" />
+        </EntityType>
+        <EntityType Name="TiposPago">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIpo_Pago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoPagoXAsistente" Relationship="Self.FK__TipoPagoX__ID_TI__44FF419A" FromRole="TiposPago" ToRole="TipoPagoXAsistente" />
+        </EntityType>
+        <EntityType Name="Transaccion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int32" />
+          <Property Name="ID_Asistente" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Hora_Inicio" Type="DateTime" Precision="3" />
+          <Property Name="Hora_Final" Type="DateTime" Precision="3" />
+          <Property Name="Confirmado" Type="Int32" />
+          <NavigationProperty Name="Asistente" Relationship="Self.FK__Transacci__ID_As__46E78A0C" FromRole="Transaccion" ToRole="Asistente" />
+          <NavigationProperty Name="Calificaciones" Relationship="Self.FK__Calificac__ID_Tr__4E88ABD4" FromRole="Transaccion" ToRole="Calificaciones" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Transacci__ID_Us__45F365D3" FromRole="Transaccion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Primer_Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cedula" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono_FIjo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Celular_1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Celular_2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Identificacion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo_Identificacion" Type="Int32" />
+          <Property Name="Edad" Type="Int32" />
+          <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BarrerasXusuario" Relationship="Self.FK__BarrerasX__ID_Us__3F466844" FromRole="Usuario" ToRole="BarrerasXusuario" />
+          <NavigationProperty Name="Identificacion1" Relationship="Self.FK__Usuario__Tipo_Id__3E52440B" FromRole="Usuario" ToRole="Identificacion" />
+          <NavigationProperty Name="Transaccion" Relationship="Self.FK__Transacci__ID_Us__45F365D3" FromRole="Usuario" ToRole="Transaccion" />
+          <NavigationProperty Name="Asistente" Relationship="Self.AsistentesXUsuario" FromRole="Usuario" ToRole="Asistente" />
+        </EntityType>
+        <Association Name="FK__Asistente__ID_Li__4316F928">
+          <End Role="Licencias" Type="Self.Licencias" Multiplicity="0..1" />
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Licencias">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Asistente">
+              <PropertyRef Name="ID_Licencia_Conducir" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Asistente__Tipo___4222D4EF">
+          <End Role="Identificacion" Type="Self.Identificacion" Multiplicity="0..1" />
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificacion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Asistente">
+              <PropertyRef Name="Tipo_Identificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__ID_As__4D94879B">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contratos__ID_As__49C3F6B7">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="0..1" />
+          <End Role="ContratosXAsistente" Type="Self.ContratosXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContratosXAsistente">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Habilidad__ID_As__412EB0B6">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="1" />
+          <End Role="HabilidadesXAsistente" Type="Self.HabilidadesXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HabilidadesXAsistente">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TipoPagoX__ID_As__440B1D61">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="1" />
+          <End Role="TipoPagoXAsistente" Type="Self.TipoPagoXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TipoPagoXAsistente">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacci__ID_As__46E78A0C">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="0..1" />
+          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaccion">
+              <PropertyRef Name="ID_Asistente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BarrerasX__ID_Ba__403A8C7D">
+          <End Role="Barreras" Type="Self.Barreras" Multiplicity="1" />
+          <End Role="BarrerasXusuario" Type="Self.BarrerasXusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barreras">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BarrerasXusuario">
+              <PropertyRef Name="ID_Barrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BarrerasX__ID_Us__3F466844">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="BarrerasXusuario" Type="Self.BarrerasXusuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BarrerasXusuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__ID_Tr__4E88ABD4">
+          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="0..1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="ID_Transaccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallesX__ID_Co__4AB81AF0">
+          <End Role="ContratosXAsistente" Type="Self.ContratosXAsistente" Multiplicity="1" />
+          <End Role="DetallesXContrato" Type="Self.DetallesXContrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContratosXAsistente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetallesXContrato">
+              <PropertyRef Name="ID_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Tipo_Id__3E52440B">
+          <End Role="Identificacion" Type="Self.Identificacion" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificacion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Tipo_Identificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TipoPagoX__ID_TI__44FF419A">
+          <End Role="TiposPago" Type="Self.TiposPago" Multiplicity="0..1" />
+          <End Role="TipoPagoXAsistente" Type="Self.TipoPagoXAsistente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposPago">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TipoPagoXAsistente">
+              <PropertyRef Name="ID_TIpo_Pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacci__ID_Us__45F365D3">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaccion">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AsistentesXUsuario">
+          <End Role="Asistente" Type="Self.Asistente" Multiplicity="*" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="appsistenciaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asistente" EntityType="Self.Asistente" />
+          <EntitySet Name="Barreras" EntityType="Self.Barreras" />
+          <EntitySet Name="BarrerasXusuario" EntityType="Self.BarrerasXusuario" />
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificaciones" />
+          <EntitySet Name="ContratosXAsistente" EntityType="Self.ContratosXAsistente" />
+          <EntitySet Name="DetallesXContrato" EntityType="Self.DetallesXContrato" />
+          <EntitySet Name="HabilidadesXAsistente" EntityType="Self.HabilidadesXAsistente" />
+          <EntitySet Name="Identificacion" EntityType="Self.Identificacion" />
+          <EntitySet Name="Licencias" EntityType="Self.Licencias" />
+          <EntitySet Name="Quejas" EntityType="Self.Quejas" />
+          <EntitySet Name="TipoPagoXAsistente" EntityType="Self.TipoPagoXAsistente" />
+          <EntitySet Name="TiposPago" EntityType="Self.TiposPago" />
+          <EntitySet Name="Transaccion" EntityType="Self.Transaccion" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Asistente__ID_Li__4316F928" Association="Self.FK__Asistente__ID_Li__4316F928">
+            <End Role="Licencias" EntitySet="Licencias" />
+            <End Role="Asistente" EntitySet="Asistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Asistente__Tipo___4222D4EF" Association="Self.FK__Asistente__Tipo___4222D4EF">
+            <End Role="Identificacion" EntitySet="Identificacion" />
+            <End Role="Asistente" EntitySet="Asistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__ID_As__4D94879B" Association="Self.FK__Calificac__ID_As__4D94879B">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contratos__ID_As__49C3F6B7" Association="Self.FK__Contratos__ID_As__49C3F6B7">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="ContratosXAsistente" EntitySet="ContratosXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Habilidad__ID_As__412EB0B6" Association="Self.FK__Habilidad__ID_As__412EB0B6">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="HabilidadesXAsistente" EntitySet="HabilidadesXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TipoPagoX__ID_As__440B1D61" Association="Self.FK__TipoPagoX__ID_As__440B1D61">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="TipoPagoXAsistente" EntitySet="TipoPagoXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacci__ID_As__46E78A0C" Association="Self.FK__Transacci__ID_As__46E78A0C">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="Transaccion" EntitySet="Transaccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BarrerasX__ID_Ba__403A8C7D" Association="Self.FK__BarrerasX__ID_Ba__403A8C7D">
+            <End Role="Barreras" EntitySet="Barreras" />
+            <End Role="BarrerasXusuario" EntitySet="BarrerasXusuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BarrerasX__ID_Us__3F466844" Association="Self.FK__BarrerasX__ID_Us__3F466844">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="BarrerasXusuario" EntitySet="BarrerasXusuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__ID_Tr__4E88ABD4" Association="Self.FK__Calificac__ID_Tr__4E88ABD4">
+            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallesX__ID_Co__4AB81AF0" Association="Self.FK__DetallesX__ID_Co__4AB81AF0">
+            <End Role="ContratosXAsistente" EntitySet="ContratosXAsistente" />
+            <End Role="DetallesXContrato" EntitySet="DetallesXContrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Tipo_Id__3E52440B" Association="Self.FK__Usuario__Tipo_Id__3E52440B">
+            <End Role="Identificacion" EntitySet="Identificacion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TipoPagoX__ID_TI__44FF419A" Association="Self.FK__TipoPagoX__ID_TI__44FF419A">
+            <End Role="TiposPago" EntitySet="TiposPago" />
+            <End Role="TipoPagoXAsistente" EntitySet="TipoPagoXAsistente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacci__ID_Us__45F365D3" Association="Self.FK__Transacci__ID_Us__45F365D3">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Transaccion" EntitySet="Transaccion" />
+          </AssociationSet>
+          <AssociationSet Name="AsistentesXUsuario" Association="Self.AsistentesXUsuario">
+            <End Role="Asistente" EntitySet="Asistente" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <FunctionImport Name="spInsertarUsuario">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="primer_Apellido" Mode="In" Type="String" />
+            <Parameter Name="segundo_Apellido" Mode="In" Type="String" />
+            <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="genero" Mode="In" Type="String" />
+            <Parameter Name="telefono_FIjo" Mode="In" Type="String" />
+            <Parameter Name="celular_1" Mode="In" Type="String" />
+            <Parameter Name="celular_2" Mode="In" Type="String" />
+            <Parameter Name="identificacion" Mode="In" Type="String" />
+            <Parameter Name="tipo_Identificacion" Mode="In" Type="Int32" />
+            <Parameter Name="edad" Mode="In" Type="Int32" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="foto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertarUsuarioTest">
+            <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="genero" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spSelectUsuario" ReturnType="Collection(appsistenciaDBModel.spSelectUsuario_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spSelectUsuario_Result">
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Genero" Nullable="false" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="appsistenciaDBModelStoreContainer" CdmEntityContainer="appsistenciaDBEntities">
+          <EntitySetMapping Name="Asistente">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Asistente">
+              <MappingFragment StoreEntitySet="Asistente">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
+                <ScalarProperty Name="Segundo_Apellido" ColumnName="Segundo_Apellido" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Tipo_Identificacion" ColumnName="Tipo_Identificacion" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Certificado_Asistente" ColumnName="Certificado_Asistente" />
+                <ScalarProperty Name="ID_Licencia_Conducir" ColumnName="ID_Licencia_Conducir" />
+                <ScalarProperty Name="Tiempo_Laborado" ColumnName="Tiempo_Laborado" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CobroXhora" ColumnName="CobroXhora" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Barreras">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Barreras">
+              <MappingFragment StoreEntitySet="Barreras">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Barrera" ColumnName="Barrera" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BarrerasXusuario">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.BarrerasXusuario">
+              <MappingFragment StoreEntitySet="BarrerasXusuario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Barrera" ColumnName="ID_Barrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calificaciones">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Calificaciones">
+              <MappingFragment StoreEntitySet="Calificaciones">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Asistente" ColumnName="ID_Asistente" />
+                <ScalarProperty Name="ID_Transaccion" ColumnName="ID_Transaccion" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContratosXAsistente">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.ContratosXAsistente">
+              <MappingFragment StoreEntitySet="ContratosXAsistente">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Asistente" ColumnName="ID_Asistente" />
+                <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+                <ScalarProperty Name="Fecha_Final" ColumnName="Fecha_Final" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetallesXContrato">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.DetallesXContrato">
+              <MappingFragment StoreEntitySet="DetallesXContrato">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Contrato" ColumnName="ID_Contrato" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HabilidadesXAsistente">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.HabilidadesXAsistente">
+              <MappingFragment StoreEntitySet="HabilidadesXAsistente">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Asistente" ColumnName="ID_Asistente" />
+                <ScalarProperty Name="Habilidad" ColumnName="Habilidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Identificacion">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Identificacion">
+              <MappingFragment StoreEntitySet="Identificacion">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Tipo_Identificacion" ColumnName="Tipo_Identificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Licencias">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Licencias">
+              <MappingFragment StoreEntitySet="Licencias">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TIpo_Licencia" ColumnName="TIpo_Licencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quejas">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Quejas">
+              <MappingFragment StoreEntitySet="Quejas">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Remitente" ColumnName="ID_Remitente" />
+                <ScalarProperty Name="ID_Destinatario" ColumnName="ID_Destinatario" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPagoXAsistente">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.TipoPagoXAsistente">
+              <MappingFragment StoreEntitySet="TipoPagoXAsistente">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Asistente" ColumnName="ID_Asistente" />
+                <ScalarProperty Name="ID_TIpo_Pago" ColumnName="ID_TIpo_Pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposPago">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.TiposPago">
+              <MappingFragment StoreEntitySet="TiposPago">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TIpo_Pago" ColumnName="TIpo_Pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaccion">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Transaccion">
+              <MappingFragment StoreEntitySet="Transaccion">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Asistente" ColumnName="ID_Asistente" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Hora_Inicio" ColumnName="Hora_Inicio" />
+                <ScalarProperty Name="Hora_Final" ColumnName="Hora_Final" />
+                <ScalarProperty Name="Confirmado" ColumnName="Confirmado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="appsistenciaDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Primer_Apellido" ColumnName="Primer_Apellido" />
+                <ScalarProperty Name="Segundo_Apellido" ColumnName="Segundo_Apellido" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Telefono_FIjo" ColumnName="Telefono_FIjo" />
+                <ScalarProperty Name="Celular_1" ColumnName="Celular_1" />
+                <ScalarProperty Name="Celular_2" ColumnName="Celular_2" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Tipo_Identificacion" ColumnName="Tipo_Identificacion" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AsistentesXUsuario" TypeName="appsistenciaDBModel.AsistentesXUsuario" StoreEntitySet="AsistentesXUsuario">
+            <EndProperty Name="Asistente">
+              <ScalarProperty Name="ID" ColumnName="ID_Asistente" />
+            </EndProperty>
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="ID" ColumnName="ID_Usuario" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="spInsertarUsuario" FunctionName="appsistenciaDBModel.Store.spInsertarUsuario" />
+          <FunctionImportMapping FunctionImportName="spInsertarUsuarioTest" FunctionName="appsistenciaDBModel.Store.spInsertarUsuarioTest" />
+          <FunctionImportMapping FunctionImportName="spSelectUsuario" FunctionName="appsistenciaDBModel.Store.spSelectUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="appsistenciaDBModel.spSelectUsuario_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
